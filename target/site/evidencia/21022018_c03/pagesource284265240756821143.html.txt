@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>		
+		<title>ACTUALIZACIÓN DE DATOS / SOLICITUD DE CLAVE</title>
+		<script type="text/javascript">
+			function sendHeightToPortal(){
+				calcHeightIframeContenido();
+				
+			}
+			
+			function abrir(direccion,pantallacompleta,estado,herramientas,barramenu,titulo,cambiatamano,direcciones,barrascroll,ancho,alto,izquierda,arriba,sustituir){var opciones="fullscreen="+pantallacompleta+",status="+estado+",toolbar="+herramientas+",menubar="+barramenu+",titlebar="+titulo+",resizable="+cambiatamano+",location="+direcciones+",scrollbars="+barrascroll+",width="+ancho+",height="+alto+",left="+izquierda+",top="+arriba;var ventana=window.open(direccion,"venta",opciones,sustituir);}
+
+	function consultar(url) {
+		window.open(url, "frameActInfo");	
+	}
+
+
+
+	
+		function getNewHeightDocument() {
+		var heightIframe = 0;
+		var increase = 0;
+
+		//find the height of the iframe
+		var iframeContDOC = document;
+		var iframeContDE = iframeContDOC.documentElement;
+		var iframeContB = iframeContDOC.body;
+		
+		var offsetHeightB = 0; try {offsetHeightB = iframeContB.offsetHeight;} catch(e) {offsetHeightB = 0;}
+		var clientHeightB = 0; try {clientHeightB = iframeContB.clientHeight;} catch(e) {clientHeightB = 0;}
+		var heightB_OC = Math.max(clientHeightB, offsetHeightB);
+		
+		heightIframe = heightB_OC;
+		increase = getIncreaseHeight(heightIframe);
+		iframeContB.height = heightIframe + increase;
+		
+		var scrollHeightB = 0; try {scrollHeightB = iframeContB.scrollHeight;} catch(e) {scrollHeightB = 0;}
+		var heightB_OCS = Math.max(scrollHeightB, heightB_OC);
+		var heightB = heightB_OCS;
+		
+		
+		var offsetHeightDE = 0; try {offsetHeightDE = iframeContDE.offsetHeight;} catch(e) {offsetHeightDE = 0;}
+		var clientHeightDE = 0; try {clientHeightDE = iframeContDE.clientHeight;} catch(e) {clientHeightDE = 0;}
+		var scrollHeightDE = 0; try {scrollHeightDE = iframeContDE.scrollHeight;} catch(e) {scrollHeightDE = 0;}
+		var heightDE_OC = Math.max(offsetHeightDE, clientHeightDE);
+		var heightDE_OCS = Math.max(heightDE_OC, scrollHeightDE);
+		var heightDE = heightDE_OCS;
+		
+		//change the height of the iframe
+		heightIframe = Math.max(heightB, heightDE);
+		increase = getIncreaseHeight(heightIframe);
+		
+		var heightDocument = heightIframe + increase;
+		return heightDocument;
+	}
+	
+	function getIncreaseHeight(valueHeight) {
+		var increase = 0;
+		var porcentageToIncrease = valueHeight * 0.05;
+		if (porcentageToIncrease &gt; 30) {
+			increase = 30;
+		} else {
+			if (porcentageToIncrease &lt; 10) {
+				increase = 10;
+			} else {
+				increase = porcentageToIncrease;
+			}
+		}
+		return increase+200;
+	}
+	
+		function calcHeightIframeContenido() {	
+			var heightDocument = getNewHeightDocument();
+			var nameIfame = 'frameActInfo';
+			var iframeContenido = document.getElementById(nameIfame);
+			iframeContenido.height = heightDocument;
+			var message = heightDocument;
+			var dominioPortal = 'https://www.proteccion.com';
+			parent.postMessage(message, dominioPortal);
+		}
+	
+	
+		</script>
+	</head>
+	<frameset name="frameActInfo" id="frameActInfo" rows="0,*" cols="*" frameborder="NO" border="0" framespacing="0">
+		<frame src="salidaSegura.jsp" name="cabezote" id="cabezote" scrolling="NO" marginwidth="0" marginheight="0" />
+		<frame src="login.do" name="contenido2" id="contenido2" scrolling="yes" marginwidth="0" marginheight="0" />
+	</frameset>
+	<noframes>
+		&lt;body bgcolor="#FFFFFF"&gt;&lt;/body&gt;
+	</noframes>
+</html>
